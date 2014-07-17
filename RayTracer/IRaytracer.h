@@ -1,11 +1,11 @@
-#include "Image.h"
-#include "ViewingRay.h"
-
 #ifndef I_RAY_TRACER_H
 #define I_RAY_TRACER_H
 
+#include "Image.h"
+#include "ViewingRay.h"
+
 class Scene;
-class ISceneObject;
+class Camera;
 
 class IRaytracer {
 public:
@@ -13,7 +13,7 @@ public:
 	~IRaytracer();
 
 protected:
-	void traceScene(const Scene &scene, Image image);
+	void traceScene(const Scene &scene, const Camera &camera, Image image);
 
 private:
 	virtual void computeRay() = 0;
@@ -22,3 +22,8 @@ private:
 };
 
 #endif
+
+void IRaytracer::traceScene(const Scene &scene, const Camera &camera, Image image)
+{
+
+}

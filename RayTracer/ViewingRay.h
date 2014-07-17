@@ -1,9 +1,7 @@
-#include "gmtl\Vec.h"
+#include "RaytracerMath.h"
 
 #ifndef VIEWING_RAY_H
 #define VIEWING_RAY_H
-
-typedef gmtl::Vec3d Vec3;
 
 class ViewingRay {
 public:
@@ -12,10 +10,10 @@ public:
 
 	~ViewingRay();
 
-	Vec3 getOrigin();
+	Vec3 getOrigin() const;
 	void setOrigin(Vec3 origin);
 
-	Vec3 getDirection();
+	Vec3 getDirection() const;
 	void setDirection(Vec3 direction);
 
 private:

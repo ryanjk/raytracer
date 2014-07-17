@@ -1,5 +1,5 @@
 #include "GL\glut.h"
-//#include "gmtl\gmtl.h"
+#include "RaytracerMath.h"
 #include <iostream>
 #include <conio.h>
 #include "Image.h"
@@ -38,6 +38,5 @@ int main(int argc, char** argv)
 
 	glutMainLoop();
 
-	getch();
 	return 0;
 }
