@@ -85,6 +85,8 @@
   <ItemGroup>
     <ClInclude Include="Image.h" />
     <ClInclude Include="IRaytracer.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="ViewingRay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

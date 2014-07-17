@@ -2,15 +2,37 @@
 
 Image::Image (int imageWidth, int imageHeight) : m_imageWidth(imageWidth), m_imageHeight(imageHeight)
 {
-	imagePixels = new char[m_imageWidth * m_imageHeight * 3];
+	m_imagePixels = new char[m_imageWidth * m_imageHeight * 3];
+
+	// Initialize pixels to black
+	for (int row = 0; row < m_imageHeight; ++row)
+	{
+		for (int column = 0; column < m_imageWidth; ++column)
+		{
+			char value = 0;
+			setPixel(row, column, RGB_R, value);
+			setPixel(row, column, RGB_G, value);
+			setPixel(row, column, RGB_B, value);
+		}
+	}
 }
 
-char Image::getPixel(int i, int j, int k) const
+Image::~Image()
 {
-	return imagePixels[i * m_imageHeight + j * m_imageWidth + k];
+	delete m_imagePixels;
+}
+
+char Image::getPixel(int row, int column, RGB rgb) const
+{
+	return m_imagePixels[row * m_imageHeight + column * m_imageWidth + rgb];
 };
 
-void Image::setPixel(int i, int j, int k, char value)
+const char* Image::getImage() const
 {
-	imagePixels[i * m_imageWidth * 3 + j * 3 + k] = value;
+	return m_imagePixels;
+}
+
+void Image::setPixel(int row, int column, RGB rgb, char value)
+{
+	m_imagePixels[row * m_imageWidth * 3 + column * 3 + rgb] = value;
 }

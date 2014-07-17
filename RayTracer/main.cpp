@@ -1,24 +1,13 @@
 #include "GL\glut.h"
+//#include "gmtl\gmtl.h"
 #include <iostream>
 #include <conio.h>
+#include "Image.h"
 
 const int WIDTH = 640;
 const int HEIGHT = 480;
 
-char image[HEIGHT][WIDTH][3];
-
-void init_image()
-{
-	for (int i = 0; i < HEIGHT; ++i)
-	{
-		for (int j = 0; j < WIDTH; ++j)
-		{
-			image[i][j][0] = 0;
-			image[i][j][1] = 0;
-			image[i][j][2] = 0;
-		}
-	}
-}
+Image image(WIDTH, HEIGHT);
 
 void display()
 {
@@ -27,15 +16,13 @@ void display()
 	glDrawPixels(WIDTH, HEIGHT, 
 		GL_RGB,
 		GL_UNSIGNED_BYTE, 
-		image);
+		image.getImage());
 
 	glutSwapBuffers();
 }
 
 int main(int argc, char** argv)
 {
-	init_image();
-	
 	// Initialize glut
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
