@@ -7,3 +7,9 @@ bool isOrthonormal(Mat33 matrix)
 
 	return (transpose == inverse);
 }
+
+bool isPerpendicular(Vec3 a, Vec3 b)
+{
+	double dotProduct = gmtl::dot(a, b);
+	return (dotProduct == 0);
+}

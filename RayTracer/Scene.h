@@ -3,8 +3,7 @@
 
 class Scene {
 public:
-	Scene();
-	~Scene();
+	
 };
 
 #endif //SCENE_H

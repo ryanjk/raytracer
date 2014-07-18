@@ -6,6 +6,7 @@
 class CoordinateFrame {
 public:
 	CoordinateFrame();
+	CoordinateFrame(const CoordinateFrame &coordinateFrame);
 	CoordinateFrame(Vec3 origin, Vec3 u, Vec3 v, Vec3 w);
 
 	Vec3 getOrigin() const;

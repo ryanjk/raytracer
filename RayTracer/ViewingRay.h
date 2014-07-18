@@ -8,8 +8,6 @@ public:
 	ViewingRay();
 	ViewingRay(Vec3 origin, Vec3 direction);
 
-	~ViewingRay();
-
 	Vec3 getOrigin() const;
 	void setOrigin(Vec3 origin);
 

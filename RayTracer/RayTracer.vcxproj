@@ -83,13 +83,17 @@
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OrthographicCamera.cpp" />
+    <ClCompile Include="Raytracer.cpp" />
     <ClCompile Include="RaytracerMath.cpp" />
+    <ClCompile Include="ViewingRay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateFrame.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="Image.h" />
-    <ClInclude Include="IRaytracer.h" />
+    <ClInclude Include="OrthographicCamera.h" />
+    <ClInclude Include="Raytracer.h" />
     <ClInclude Include="RaytracerMath.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ViewingRay.h" />

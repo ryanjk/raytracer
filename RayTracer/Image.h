@@ -1,6 +1,8 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+typedef char* Pixel;
+
 enum RGB {
 	RGB_R,
 	RGB_G,
@@ -17,8 +19,10 @@ public:
 
 	const char *getImage() const;
 
-	char getPixel(int row, int column, RGB rgb) const;
-	void setPixel(int row, int column, RGB rgb, char value);
+	char getPixelValue(int row, int column, RGB rgb) const;
+	void setPixelValue(int row, int column, RGB rgb, char value);
+
+	Pixel getPixel(int row, int column) const;
 
 private:
 	int m_imageWidth;

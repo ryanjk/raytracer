@@ -3,11 +3,22 @@
 #include <iostream>
 #include <conio.h>
 #include "Image.h"
+#include "OrthographicCamera.h"
+#include "Raytracer.h"
+#include "Scene.h"
 
-const int WIDTH = 640;
-const int HEIGHT = 480;
+extern int const WIDTH = 500;
+extern int const HEIGHT = 500;
 
 Image image(WIDTH, HEIGHT);
+
+Vec3 viewpoint(0, 0, 0);
+Vec3 direction(0, 0, 1);
+Vec3 up(0, 1, 0);
+
+OrthographicCamera camera(viewpoint, direction, up, 500, 500);
+Scene scene;
+Raytracer raytracer;
 
 void display()
 {
@@ -23,6 +34,8 @@ void display()
 
 int main(int argc, char** argv)
 {
+	raytracer.traceScene(scene, camera, image);
+	
 	// Initialize glut
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);

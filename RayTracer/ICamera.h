@@ -4,22 +4,18 @@
 #include "RaytracerMath.h"
 #include "CoordinateFrame.h"
 
-typedef float Dimension;
+class ViewingRay;
+
+typedef double Dimension;
 
 class ICamera {
 public:
-	ICamera();
-	ICamera(Vec3 position, Vec3 direction, Vec3 up, 
+	void initializeCamera(Vec3 viewpoint, Vec3 direction, Vec3 up,
 		Dimension length, Dimension height);
 
-	~ICamera();
-
-	Vec3 getDirection() const;
-	Vec3 getUp() const;
-	Vec3 getViewpoint() const;
-
+	virtual void computeRay(int pixelRow, int pixelColumn, ViewingRay &viewingRay) const = 0;
 	
-private:
+protected:
 	CoordinateFrame cameraFrame;
 	Dimension m_left;
 	Dimension m_right;

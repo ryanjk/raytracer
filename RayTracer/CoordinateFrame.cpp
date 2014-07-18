@@ -2,6 +2,14 @@
 
 CoordinateFrame::CoordinateFrame() {}
 
+CoordinateFrame::CoordinateFrame(const CoordinateFrame &coordinateFrame)
+{
+	m_origin = coordinateFrame.m_origin;
+	m_u = coordinateFrame.m_u;
+	m_v = coordinateFrame.m_v;
+	m_w = coordinateFrame.m_w;
+}
+
 CoordinateFrame::CoordinateFrame(Vec3 origin, Vec3 u, Vec3 v, Vec3 w)
 {	
 	gmtl::normalize(u);
@@ -21,4 +29,24 @@ CoordinateFrame::CoordinateFrame(Vec3 origin, Vec3 u, Vec3 v, Vec3 w)
 	m_u = u;
 	m_v = v;
 	m_w = w;
+}
+
+Vec3 CoordinateFrame::getOrigin() const
+{
+	return m_origin;
+}
+
+Vec3 CoordinateFrame::getU() const
+{
+	return m_u;
+}
+
+Vec3 CoordinateFrame::getV() const
+{
+	return m_v;
+}
+
+Vec3 CoordinateFrame::getW() const
+{
+	return m_w;
 }

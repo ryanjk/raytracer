@@ -10,21 +10,21 @@ Image::Image (int imageWidth, int imageHeight) : m_imageWidth(imageWidth), m_ima
 		for (int column = 0; column < m_imageWidth; ++column)
 		{
 			char value = 0;
-			setPixel(row, column, RGB_R, value);
-			setPixel(row, column, RGB_G, value);
-			setPixel(row, column, RGB_B, value);
+			setPixelValue(row, column, RGB_R, value);
+			setPixelValue(row, column, RGB_G, value);
+			setPixelValue(row, column, RGB_B, value);
 		}
 	}
 }
 
 Image::~Image()
 {
-	delete m_imagePixels;
+	//delete m_imagePixels;
 }
 
-char Image::getPixel(int row, int column, RGB rgb) const
+char Image::getPixelValue(int row, int column, RGB rgb) const
 {
-	return m_imagePixels[row * m_imageHeight + column * m_imageWidth + rgb];
+	return m_imagePixels[row * m_imageWidth * 3 + column * 3 + rgb];
 };
 
 const char* Image::getImage() const
@@ -32,7 +32,12 @@ const char* Image::getImage() const
 	return m_imagePixels;
 }
 
-void Image::setPixel(int row, int column, RGB rgb, char value)
+void Image::setPixelValue(int row, int column, RGB rgb, char value)
 {
 	m_imagePixels[row * m_imageWidth * 3 + column * 3 + rgb] = value;
+}
+
+Pixel Image::getPixel(int row, int column) const
+{
+	return &m_imagePixels[row * m_imageWidth * 3 + column * 3];
 }

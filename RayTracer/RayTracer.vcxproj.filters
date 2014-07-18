@@ -30,11 +30,17 @@
     <ClCompile Include="RaytracerMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrthographicCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewingRay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Raytracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IRaytracer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RaytracerMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Raytracer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthographicCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
