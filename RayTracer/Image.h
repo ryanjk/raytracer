@@ -1,15 +1,9 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-typedef char* Pixel;
+#include "RaytracerShapeHeader.h"
 
-enum RGB {
-	RGB_R,
-	RGB_G,
-	RGB_B,
-	RGB_FIRST = RGB_R,
-	RGB_LAST = RGB_B
-};
+typedef char* Pixel;
 
 class Image {
 public:

@@ -4,8 +4,7 @@
 #include "Image.h"
 #include "ViewingRay.h"
 #include "ICamera.h"
-
-class Scene;
+#include "Scene.h"
 
 class Raytracer {
 public:

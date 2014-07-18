@@ -5,7 +5,7 @@ void ICamera::initializeCamera(Vec3 viewpoint, Vec3 direction, Vec3 up, Dimensio
 {
 	assert(isPerpendicular(direction, up));
 
-	Vec3 u = -(gmtl::cross(u, direction, up));
+	Vec3 u = gmtl::cross(u, up, direction);
 	Vec3 v = up;
 	Vec3 w = -direction;
 

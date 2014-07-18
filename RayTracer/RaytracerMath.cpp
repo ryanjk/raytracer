@@ -1,5 +1,8 @@
 #include "RaytracerMath.h"
 
+extern double const MIN_TRACE_DIST = 0;
+extern double const MAX_TRACE_DIST = 10;
+
 bool isOrthonormal(Mat33 matrix)
 {
 	Mat33 transpose = gmtl::transpose(matrix);

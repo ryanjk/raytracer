@@ -9,4 +9,7 @@ typedef gmtl::Matrix33d Mat33;
 extern bool isOrthonormal(Mat33 matrix);
 extern bool isPerpendicular(Vec3 a, Vec3 b);
 
+extern double const MIN_TRACE_DIST;
+extern double const MAX_TRACE_DIST;
+
 #endif

@@ -6,18 +6,20 @@
 #include "OrthographicCamera.h"
 #include "Raytracer.h"
 #include "Scene.h"
+#include "Sphere.h"
+#include "ObjectProperties.h"
+#include "RaytracerShapeHeader.h"
 
-extern int const WIDTH = 500;
-extern int const HEIGHT = 500;
+extern int const WIDTH = 200;
+extern int const HEIGHT = 200;
 
 Image image(WIDTH, HEIGHT);
 
 Vec3 viewpoint(0, 0, 0);
 Vec3 direction(0, 0, 1);
 Vec3 up(0, 1, 0);
+OrthographicCamera camera(viewpoint, direction, up, 15, 15);
 
-OrthographicCamera camera(viewpoint, direction, up, 500, 500);
-Scene scene;
 Raytracer raytracer;
 
 void display()
@@ -34,6 +36,12 @@ void display()
 
 int main(int argc, char** argv)
 {
+	ObjectProperties *sphereProperties = new ObjectProperties();
+	sphereProperties->setColour({ (char) 255, 0, 0 });
+	Sphere *sphere = new Sphere(Vec3(0, 0, 5), 5, sphereProperties);
+	Scene scene;
+	scene.addObject(sphere);
+	
 	raytracer.traceScene(scene, camera, image);
 	
 	// Initialize glut
