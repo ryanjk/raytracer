@@ -7,9 +7,11 @@
 
 class ISceneObject {
 public:
-	virtual bool rayIntersect(const ViewingRay &viewingRay, double &intersectionPoint) = 0;
+	virtual bool rayIntersect(const ViewingRay &viewingRay, double &t) = 0;
+	
+	virtual Vec3 getNormalAt(const Vec3 &surfaceLocation) const = 0;
 
-	ObjectProperties *getObjectProperties() {
+	ObjectProperties *getObjectProperties() const {
 		return m_objectProperties;
 	}
 

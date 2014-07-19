@@ -8,7 +8,7 @@ Sphere::Sphere(Vec3 center, double radius, ObjectProperties *objectProperties)
 }
 
 
-bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &intersectionPoint)
+bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &t)
 {
 	Vec3 direction = viewingRay.getDirection();
 	double sqrD = gmtl::lengthSquared(direction);
@@ -29,7 +29,7 @@ bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &intersectionPoin
 
 	else if (discriminant == 0)
 	{
-		intersectionPoint = -tempDot / sqrD;
+		t = -tempDot / sqrD;
 
 		return true;
 	}
@@ -39,9 +39,17 @@ bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &intersectionPoin
 		double sqrtDiscriminant = gmtl::Math::sqrt(discriminant);
 		double t1 = (-tempDot + sqrtDiscriminant) / sqrD;
 		double t2 = (-tempDot - sqrtDiscriminant) / sqrD;
-		intersectionPoint = gmtl::Math::Min(t1, t2);
+		t = gmtl::Math::Min(t1, t2);
 //		std::cout << intersectionPoint << std::endl;
 
 		return true;
 	}
+}
+
+Vec3 Sphere::getNormalAt(const Vec3 &surfaceLocation) const
+{
+	Vec3 normal = surfaceLocation - m_center;
+	gmtl::normalize(normal);
+
+	return normal;
 }

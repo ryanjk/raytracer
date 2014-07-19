@@ -2,7 +2,7 @@
 #define SHAPE_DATA_H
 
 #include <vector>
-typedef std::vector<char> Colour;
+typedef std::vector<unsigned char> Colour;
 
 enum RGB {
 	RGB_R,

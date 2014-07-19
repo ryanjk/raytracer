@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="CoordinateFrame.h" />
     <ClInclude Include="ICamera.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ISceneObject.h" />
     <ClInclude Include="ObjectProperties.h" />
