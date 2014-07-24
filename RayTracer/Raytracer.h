@@ -12,7 +12,7 @@ public:
 
 private:
 	ViewingRay viewingRay;
-	void shadePixel(const PointLights &pointLights, const ISceneObject *surface, const Vec3 &intersectionPoint, Pixel pixel);
+	void shadePixel(const PointLights &pointLights, const ISceneObject *surface, const Vec3 &intersectionPoint, Pixel &pixel);
 
 };
 

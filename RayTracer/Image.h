@@ -3,25 +3,19 @@
 
 #include "RaytracerShapeHeader.h"
 
-typedef char* Pixel;
-
 class Image {
 public:
 	Image(int imageWidth, int imageHeight);
 
-	~Image();
-
-	const char *getImage() const;
-
-	char getPixelValue(int row, int column, RGB rgb) const;
-	void setPixelValue(int row, int column, RGB rgb, char value);
+	const PixelColour *getImage() const;
 
 	Pixel getPixel(int row, int column) const;
 
 private:
 	int m_imageWidth;
 	int m_imageHeight;
-	char *m_imagePixels;
+	PixelColour *m_imagePixels;
+	void setPixelValue(int row, int column, RGB rgb, PixelColour value);
 };
 
 #endif //IMAGE_H

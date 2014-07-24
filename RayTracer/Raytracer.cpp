@@ -10,15 +10,14 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 	{
 		for (int currentColumn = 0; currentColumn < WIDTH; ++currentColumn)
 		{
+			Pixel pixel = image.getPixel(currentRow, currentColumn);
 			camera.computeRay(currentRow, currentColumn, viewingRay);
-		//	std::cout << "Viewing ray: " << viewingRay.getOrigin() << std::endl;
 			ISceneObject *sceneObject = nullptr;
 			double t;
 			bool hit = scene.rayIntersect(viewingRay, sceneObject, t);
 
 			if (hit)
 			{
-					Pixel pixel = image.getPixel(currentRow, currentColumn);
 					PointLights pointLights = scene.getPointLights();
 					Vec3 intersectionPoint = viewingRay.getOrigin() + (t * viewingRay.getDirection());
 					shadePixel(pointLights, sceneObject, intersectionPoint, pixel);
@@ -28,7 +27,7 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 	}
 }
 
-void Raytracer::shadePixel(const PointLights &pointLights, const ISceneObject *surface, const Vec3 &intersectionPoint, Pixel pixel)
+void Raytracer::shadePixel(const PointLights &pointLights, const ISceneObject *surface, const Vec3 &intersectionPoint, Pixel &pixel)
 {
 	Vec3 surfaceNormal = surface->getNormalAt(intersectionPoint);
 
@@ -51,7 +50,6 @@ void Raytracer::shadePixel(const PointLights &pointLights, const ISceneObject *s
 		double scalar = gmtl::Math::Max((double)0, angle);
 
 		finalRed += surfaceRed * scalar * light.getRedIntensity();
-	//	std::cout << "Surface red: " << (int)surfaceRed << " Scalar: " << scalar << "Intensity: " << light.getRedIntensity() << std::endl;
 		finalBlue += surfaceBlue * scalar * light.getBlueIntensity();
 		finalGreen += surfaceGreen * scalar * light.getGreenIntensity();
 	}
@@ -61,7 +59,6 @@ void Raytracer::shadePixel(const PointLights &pointLights, const ISceneObject *s
 	finalBlue = (finalBlue > 255) ? 255 : finalBlue;
 
 	pixel[RGB_R] = finalRed;
-//	std::cout << finalRed << std::endl;
 	pixel[RGB_G] = finalGreen;
 	pixel[RGB_B] = finalBlue;
 

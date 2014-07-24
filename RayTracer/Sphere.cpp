@@ -20,8 +20,6 @@ bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &t)
 
 	double discriminant = gmtl::Math::sqr(tempDot) - sqrD*(gmtl::lengthSquared(temp) - gmtl::Math::sqr(m_radius));
 
-//	std::cout << "(e - c) = " << temp << "|| d * (e - c) = " << tempDot << "|| disc = " << discriminant << std::endl;
-
 	if (discriminant < 0)
 	{
 		return false;
@@ -40,7 +38,6 @@ bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &t)
 		double t1 = (-tempDot + sqrtDiscriminant) / sqrD;
 		double t2 = (-tempDot - sqrtDiscriminant) / sqrD;
 		t = gmtl::Math::Min(t1, t2);
-//		std::cout << intersectionPoint << std::endl;
 
 		return true;
 	}

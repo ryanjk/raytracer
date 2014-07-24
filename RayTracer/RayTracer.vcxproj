@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CoordinateFrame.cpp" />
+    <ClCompile Include="HitRecord.cpp" />
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="main.cpp" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateFrame.h" />
+    <ClInclude Include="HitRecord.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Image.h" />

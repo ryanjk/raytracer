@@ -12,8 +12,8 @@
 #include "RaytracerShapeHeader.h"
 #include "PointLight.h"
 
-extern int const WIDTH = 480;
-extern int const HEIGHT = 320;
+extern int const WIDTH = 240;
+extern int const HEIGHT = 160;
 
 const double CAMERA_WIDTH = 30;
 const double CAMERA_HEIGHT = 20;
@@ -54,14 +54,12 @@ int main(int argc, char** argv)
 	Sphere *blueSphere = new Sphere(Vec3(5, 0, 5), 2.5, blueSphereProperties);
 
 	PointLight light(Vec3(0, 5, 2), { 1, 1, 1 });
-	PointLight light2(Vec3(5, -5, 2), { 1, 1, 1 });
 
 	Scene scene;
 	scene.addObject(redSphere);
 	scene.addObject(greenSphere);
 	scene.addObject(blueSphere);
 	scene.addPointLight(&light);
-	scene.addPointLight(&light2);
 
 	
 	std::clock_t start = clock();

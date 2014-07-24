@@ -13,81 +13,117 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{dc7bcb7b-71c4-4595-93c8-4414512265c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Definition Header">
+      <UniqueIdentifier>{d41f4076-ac49-4408-b672-6cb43045c9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Light">
+      <UniqueIdentifier>{4eda1d5c-b4ec-4883-89b8-757dcac29f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene Object">
+      <UniqueIdentifier>{5dcc56b8-5f1b-479d-9d40-1c304d87bc42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Raytracing">
+      <UniqueIdentifier>{d4f3f51a-1168-4f50-9fff-4f42928d05c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definition Header">
+      <UniqueIdentifier>{c73a56c6-a262-49fb-b876-651a5a3e5fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Light">
+      <UniqueIdentifier>{971912f3-e833-45f8-b4c5-3019e27c5a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{81205fbe-9704-4d0a-a71e-5dad6625b373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Raytracing">
+      <UniqueIdentifier>{96a81712-370d-4bfa-a686-3ae729c3b3aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Object">
+      <UniqueIdentifier>{6b637fbf-2bc8-4c27-871a-bdb844d5a12f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="RaytracerMath.cpp">
+      <Filter>Source Files\Definition Header</Filter>
     </ClCompile>
     <ClCompile Include="ICamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CoordinateFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RaytracerMath.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="OrthographicCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewingRay.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Raytracer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewingRay.cpp">
+      <Filter>Source Files\Raytracing</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene Object</Filter>
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CoordinateFrame.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="ObjectProperties.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene Object</Filter>
+    </ClCompile>
+    <ClCompile Include="HitRecord.cpp">
+      <Filter>Source Files\Raytracing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewingRay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ICamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordinateFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RaytracerMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Raytracer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OrthographicCamera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Scene Object</Filter>
     </ClInclude>
     <ClInclude Include="ISceneObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectProperties.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scene Object</Filter>
     </ClInclude>
     <ClInclude Include="RaytracerShapeHeader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Definition Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RaytracerMath.h">
+      <Filter>Header Files\Definition Header</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthographicCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectProperties.h">
+      <Filter>Header Files\Scene Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Raytracer.h">
+      <Filter>Header Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewingRay.h">
+      <Filter>Header Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="CoordinateFrame.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="HitRecord.h">
+      <Filter>Header Files\Raytracing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
