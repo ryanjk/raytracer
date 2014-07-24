@@ -7,6 +7,7 @@
 
 class PointLight {
 public:
+	PointLight() {};
 	PointLight(Vec3 position, std::vector<float> lightIntensity) : m_lightIntensity(lightIntensity), m_position(position) {}
 	PointLight(const PointLight *pointLight) { m_lightIntensity = pointLight->m_lightIntensity; m_position = pointLight->m_position; }
 

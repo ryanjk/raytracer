@@ -12,8 +12,8 @@
 #include "RaytracerShapeHeader.h"
 #include "PointLight.h"
 
-extern int const WIDTH = 240;
-extern int const HEIGHT = 160;
+extern int const WIDTH = 480;
+extern int const HEIGHT = 320;
 
 const double CAMERA_WIDTH = 30;
 const double CAMERA_HEIGHT = 20;

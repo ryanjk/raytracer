@@ -2,9 +2,10 @@
 #define SHAPE_DATA_H
 
 #include <vector>
+#include "RaytracerMath.h"
 
 typedef unsigned char PixelColour;
-typedef std::vector<PixelColour> Colour;
+typedef gmtl::Vec<PixelColour, 3U> Colour;
 typedef PixelColour* Pixel;
 
 enum RGB {

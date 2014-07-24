@@ -8,11 +8,15 @@
 
 class Raytracer {
 public:
+	Raytracer();
 	void traceScene(const Scene &scene, const ICamera &camera, Image image);
 
 private:
-	ViewingRay viewingRay;
-	void shadePixel(const PointLights &pointLights, const ISceneObject *surface, const Vec3 &intersectionPoint, Pixel &pixel);
+	ViewingRay m_viewingRay;
+	Colour m_backgroundColour;
+	Colour shadePixel(const PointLights &pointLights, const HitRecord &hitRecord);
+	void cleanPixelColour(Colour &pixelColour);
+	Colour addColours(const Colour &c1, const Colour &c2);
 
 };
 
