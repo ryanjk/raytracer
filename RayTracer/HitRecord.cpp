@@ -6,6 +6,7 @@ void HitRecord::create(ISceneObject *hitSurface, Vec3 hitPoint)
 	m_hitPoint = hitPoint;
 	m_normal = m_hitSurface->getNormalAt(hitPoint);
 	m_surfaceColour = hitSurface->getObjectProperties()->getColour();
+	m_specularColour = hitSurface->getObjectProperties()->getSpecularColor();
 }
 
 ISceneObject *HitRecord::getSurface() const
@@ -26,4 +27,9 @@ Vec3 HitRecord::getNormal() const
 Colour HitRecord::getSurfaceColour() const
 {
 	return m_surfaceColour;
+}
+
+Colour HitRecord::getSpecularColour() const
+{
+	return m_specularColour;
 }

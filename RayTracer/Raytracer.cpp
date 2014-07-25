@@ -54,8 +54,6 @@ Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene,
 	double red = 0;
 	double blue = 0;
 	double green = 0;
-	Vec3 surfaceNormal = hitRecord.getNormal();
-	Colour surfaceColour = hitRecord.getSurfaceColour();
 
 	for (unsigned int currentLight = 0; currentLight < pointLights.size(); ++currentLight)
 	{
@@ -70,14 +68,28 @@ Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene,
 
 		if (!shadowHit)
 		{
+			Vec3 surfaceNormal = hitRecord.getNormal();
+			Vec3 viewingDirection = -m_viewingRay.getDirection();
+			
 			double angle = gmtl::dot(surfaceToLight, surfaceNormal);
-			double scalar = gmtl::Math::Max((double)0, angle);
+			double lambertianScalar = gmtl::Math::Max((double)0, angle);
 
-			red += surfaceColour[RGB_R] * scalar * light.getRedIntensity();
-			blue += surfaceColour[RGB_B] * scalar * light.getBlueIntensity();
-			green += surfaceColour[RGB_G] * scalar * light.getGreenIntensity();
+			Vec3 halfway = viewingDirection + surfaceToLight;
+			gmtl::normalize(halfway);
+			double phongAngle = gmtl::dot(surfaceNormal, halfway);
+			double phongScalar = gmtl::Math::Max((double)0, phongAngle);
+
+			Colour surfaceColour = hitRecord.getSurfaceColour();
+			Colour specularColour = hitRecord.getSpecularColour();
+			double phongExponent = hitRecord.getSurface()->getObjectProperties()->getPhongExponent();
+
+			red += light.getRedIntensity() 
+				* (surfaceColour[RGB_R] * lambertianScalar + specularColour[RGB_R] * gmtl::Math::pow(phongScalar, phongExponent));
+			blue += light.getBlueIntensity()
+				* (surfaceColour[RGB_B] * lambertianScalar + specularColour[RGB_B] * gmtl::Math::pow(phongScalar, phongExponent));
+			green += light.getGreenIntensity()
+				* (surfaceColour[RGB_G] * lambertianScalar + specularColour[RGB_G] * gmtl::Math::pow(phongScalar, phongExponent));
 		}
-
 	}
 
 	PixelColour finalRed = (red > 255) ? 255 : red;
