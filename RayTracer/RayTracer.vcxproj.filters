@@ -81,6 +81,12 @@
     <ClCompile Include="HitRecord.cpp">
       <Filter>Source Files\Raytracing</Filter>
     </ClCompile>
+    <ClCompile Include="PerspectiveCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sphere.h">
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="HitRecord.h">
       <Filter>Header Files\Raytracing</Filter>
+    </ClInclude>
+    <ClInclude Include="PerspectiveCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Scene Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ Sphere::Sphere(Vec3 center, double radius, ObjectProperties *objectProperties)
 }
 
 
-bool Sphere::rayIntersect(const ViewingRay &viewingRay, double &t)
+bool Sphere::rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, const double upperLimit, double &t)
 {
 	Vec3 direction = viewingRay.getDirection();
 	double sqrD = gmtl::lengthSquared(direction);

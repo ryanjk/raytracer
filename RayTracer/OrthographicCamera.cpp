@@ -1,8 +1,5 @@
 #include "OrthographicCamera.h"
 
-extern int const WIDTH;
-extern int const HEIGHT;
-
 OrthographicCamera::OrthographicCamera(Vec3 viewpoint, Vec3 direction, Vec3 up, Dimension length, Dimension height)
 {
 	ICamera::initializeCamera(viewpoint, direction, up, length, height);

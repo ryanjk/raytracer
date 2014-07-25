@@ -7,7 +7,7 @@
 
 class ISceneObject {
 public:
-	virtual bool rayIntersect(const ViewingRay &viewingRay, double &t) = 0;
+	virtual bool rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, const double upperLimit, double &t) = 0;
 	
 	virtual Vec3 getNormalAt(const Vec3 &surfaceLocation) const = 0;
 

@@ -10,7 +10,7 @@ class Sphere : public ISceneObject {
 public:
 	Sphere(Vec3 center, double radius, ObjectProperties *objectProperties);
 
-	bool rayIntersect(const ViewingRay &viewingRay, double &t);
+	bool rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, const double upperLimit, double &t);
 
 	Vec3 getNormalAt(const Vec3 &surfaceLocation) const;
 

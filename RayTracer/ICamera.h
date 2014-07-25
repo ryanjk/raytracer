@@ -3,6 +3,10 @@
 
 #include "RaytracerMath.h"
 #include "CoordinateFrame.h"
+#include "ViewingRay.h"
+
+extern int const WIDTH;
+extern int const HEIGHT;
 
 class ViewingRay;
 

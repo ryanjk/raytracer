@@ -23,6 +23,7 @@ Vec3 ViewingRay::getOrigin() const
 
 void ViewingRay::setDirection(Vec3 direction)
 {
+	gmtl::normalize(direction);
 	m_direction = direction;
 }
 

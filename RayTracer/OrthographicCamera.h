@@ -2,7 +2,6 @@
 #define ORTHO_CAM
 
 #include "ICamera.h"
-#include "ViewingRay.h"
 
 class OrthographicCamera : public ICamera {
 public:

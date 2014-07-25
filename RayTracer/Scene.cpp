@@ -30,7 +30,7 @@ bool Scene::rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, 
 	{
 		ISceneObject *sceneObject = sceneObjects[currentObject];
 		double tempHit;
-		bool isHit = sceneObject->rayIntersect(viewingRay, tempHit);
+		bool isHit = sceneObject->rayIntersect(viewingRay, lowerLimit, upperLimit, tempHit);
 		if (isHit && (lowerLimit <= tempHit) && (tempHit <= t))
 		{
 			hit = true;

@@ -86,16 +86,19 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectProperties.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
+    <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Raytracer.cpp" />
     <ClCompile Include="RaytracerMath.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="ViewingRay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateFrame.h" />
     <ClInclude Include="HitRecord.h" />
     <ClInclude Include="ICamera.h" />
+    <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ISceneObject.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="RaytracerShapeHeader.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="ViewingRay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
