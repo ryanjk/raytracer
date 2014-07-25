@@ -7,6 +7,7 @@ typedef gmtl::Vec<Vec3, 3U> Vertices;
 
 class Triangle : public ISceneObject {
 public:
+	Triangle() {};
 	Triangle(Vec3 v1, Vec3 v2, Vec3 v3, ObjectProperties *objectProperties);
 	Triangle(Vertices vertices, ObjectProperties *objectProperties);
 

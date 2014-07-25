@@ -91,6 +91,7 @@
     <ClCompile Include="RaytracerMath.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="ViewingRay.cpp" />
   </ItemGroup>
@@ -109,6 +110,7 @@
     <ClInclude Include="RaytracerShapeHeader.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Quad.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="ViewingRay.h" />
   </ItemGroup>

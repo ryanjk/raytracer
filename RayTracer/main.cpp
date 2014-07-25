@@ -9,7 +9,7 @@
 #include "Raytracer.h"
 #include "Scene.h"
 #include "Sphere.h"
-#include "Triangle.h"
+#include "Quad.h"
 #include "ObjectProperties.h"
 #include "RaytracerShapeHeader.h"
 #include "PointLight.h"
@@ -56,16 +56,32 @@ int main(int argc, char** argv)
 	blueSphereProperties->setColour({ 0, 0, 255 });
 	Sphere *blueSphere = new Sphere(Vec3(5, 0, 10), 3, blueSphereProperties);
 
-	Triangle *triangle = new Triangle({ -20, -3, 0 }, { 20, -3, 0 }, { 0, -3, 40 }, blueSphereProperties);
+	Dimension xLeft = -CAMERA_WIDTH / 2;
+	Dimension xRight = CAMERA_WIDTH / 2;
+	Dimension yBottom = -3;
+	Dimension yTop = CAMERA_HEIGHT - 3;
+	Dimension zFront = 1;
+	Dimension zBack = 15;
 
-	PointLight light(Vec3(0, 5, 2), { 1, 1, 1 });
-//	PointLight light2(Vec3(0, 0, 2), { 0.5, 0.5, 0.5 });
+	Quad *floor = new Quad({ xLeft, yBottom, zFront }, { xRight, yBottom, zFront }, { xRight, yBottom, zBack }, { xLeft, yBottom, zBack }, redSphereProperties);
+	Quad *leftWall = new Quad({ xLeft, yBottom, zFront }, { xLeft, yBottom, zBack }, { xLeft, yTop, zBack }, { xLeft, yTop, zFront }, blueSphereProperties);
+	Quad *rightWall = new Quad({ xRight, yBottom, zFront }, { xRight, yTop, zFront }, { xRight, yTop, zBack }, { xRight, yBottom, zBack }, blueSphereProperties);
+	Quad *backWall = new Quad({ xLeft, yBottom, zBack }, { xRight, yBottom, zBack }, { xRight, yTop, zBack }, { xLeft, yTop, zBack }, greenSphereProperties);
+	Quad *ceiling = new Quad({ xLeft, yTop, zFront }, { xLeft, yTop, zBack }, { xRight, yTop, zBack }, { xRight, yTop, zFront }, redSphereProperties);
+	
+
+	PointLight light(Vec3(0, 5, 2), { 0.8f, 0.8f, 0.8f });
+	PointLight light2(Vec3(0, CAMERA_HEIGHT - 5, 10), { 0.5, 0.5, 0.5 });
 
 	Scene scene;
 	scene.addObject(redSphere);
 	scene.addObject(greenSphere);
 	scene.addObject(blueSphere);
-	scene.addObject(triangle);
+	scene.addObject(floor);
+	scene.addObject(leftWall);
+	scene.addObject(rightWall);
+	scene.addObject(backWall);
+	scene.addObject(ceiling);
 	scene.addPointLight(&light);
 //	scene.addPointLight(&light2);
 

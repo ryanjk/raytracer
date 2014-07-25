@@ -87,6 +87,9 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Source Files\Scene Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sphere.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Scene Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
       <Filter>Header Files\Scene Object</Filter>
     </ClInclude>
   </ItemGroup>
