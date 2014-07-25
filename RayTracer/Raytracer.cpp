@@ -31,10 +31,10 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 				pixelColour[RGB_B] = surfaceColour[RGB_B] * scene.getAmbientLight().colourIntensities[RGB_B];
 
 				PointLights pointLights = scene.getPointLights();
-				Vec3 intersectionPoint = hitRecord.getHitPoint();
-				Colour pointLighting = shadePixel(pointLights, hitRecord);
 
+				Colour pointLighting = shadePixel(pointLights, scene, hitRecord);
 				pixelColour = addColours(pixelColour, pointLighting);
+				
 			}
 
 			else
@@ -49,7 +49,7 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 	}
 }
 
-Colour Raytracer::shadePixel(const PointLights &pointLights, const HitRecord &hitRecord)
+Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene, const HitRecord &hitRecord)
 {
 	double red = 0;
 	double blue = 0;
@@ -61,14 +61,23 @@ Colour Raytracer::shadePixel(const PointLights &pointLights, const HitRecord &hi
 	{
 		PointLight light = pointLights[currentLight];
 		Vec3 surfaceToLight = light.getPosition() - hitRecord.getHitPoint();
+		double distSurfaceToLight = gmtl::length(surfaceToLight);
 		gmtl::normalize(surfaceToLight);
 
-		double angle = gmtl::dot(surfaceToLight, surfaceNormal);
-		double scalar = gmtl::Math::Max((double)0, angle);
+		HitRecord shadowHitRecord;
+		ViewingRay shadowRay(hitRecord.getHitPoint(), surfaceToLight);
+		bool shadowHit = scene.rayIntersect(shadowRay, EPSILON, distSurfaceToLight, shadowHitRecord);
 
-		red += surfaceColour[RGB_R] * scalar * light.getRedIntensity();
-		blue += surfaceColour[RGB_B] * scalar * light.getBlueIntensity();
-		green += surfaceColour[RGB_G] * scalar * light.getGreenIntensity();
+		if (!shadowHit)
+		{
+			double angle = gmtl::dot(surfaceToLight, surfaceNormal);
+			double scalar = gmtl::Math::Max((double)0, angle);
+
+			red += surfaceColour[RGB_R] * scalar * light.getRedIntensity();
+			blue += surfaceColour[RGB_B] * scalar * light.getBlueIntensity();
+			green += surfaceColour[RGB_G] * scalar * light.getGreenIntensity();
+		}
+
 	}
 
 	PixelColour finalRed = (red > 255) ? 255 : red;
