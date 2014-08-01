@@ -14,9 +14,8 @@ public:
 private:
 	ViewingRay m_viewingRay;
 	Colour m_backgroundColour;
+	Colour rayColour(const ViewingRay &viewingRay, const Scene &scene, const double min_t, const double max_t, int callsToMake);
 	Colour shadePixel(const PointLights &pointLights, const Scene &scene, const HitRecord &hitRecord);
-	void cleanPixelColour(Colour &pixelColour);
-	Colour addColours(const Colour &c1, const Colour &c2);
 
 };
 

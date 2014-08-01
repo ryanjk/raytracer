@@ -84,10 +84,10 @@
     <ClCompile Include="PerspectiveCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Quad.cpp">
+      <Filter>Source Files\Scene Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
       <Filter>Source Files\Scene Object</Filter>
     </ClCompile>
   </ItemGroup>

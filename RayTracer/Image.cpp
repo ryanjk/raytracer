@@ -9,7 +9,7 @@ Image::Image (int imageWidth, int imageHeight) : m_imageWidth(imageWidth), m_ima
 	{
 		for (int column = 0; column < m_imageWidth; ++column)
 		{
-			PixelColour value = 0;
+			PixelColour value = MIN_COLOUR;
 			setPixelValue(row, column, RGB_R, value);
 			setPixelValue(row, column, RGB_G, value);
 			setPixelValue(row, column, RGB_B, value);

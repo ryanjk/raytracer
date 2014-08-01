@@ -1,6 +1,6 @@
 #include "RaytracerMath.h"
 
-extern double const EPSILON = 0.0000001;
+extern double const EPSILON = 0.0001;
 extern double const MIN_TRACE_DIST = 0;
 extern double const MAX_TRACE_DIST = 100000;
 

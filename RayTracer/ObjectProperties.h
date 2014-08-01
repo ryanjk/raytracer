@@ -6,8 +6,8 @@
 class ObjectProperties {
 public:
 	ObjectProperties() {
-		m_colour = { 0, 0, 0 };
-		m_specularColour = { 0, 0, 0 };
+		m_colour = { MIN_COLOUR, MIN_COLOUR, MIN_COLOUR };
+		m_specularColour = { MIN_COLOUR, MIN_COLOUR, MIN_COLOUR };
 		m_phongExponent = 0;
 	};
 	

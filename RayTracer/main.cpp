@@ -20,6 +20,9 @@ extern int const HEIGHT = 320;
 const double CAMERA_WIDTH = 30;
 const double CAMERA_HEIGHT = 20;
 
+extern PixelColour const MAX_COLOUR = 1.0f;
+extern PixelColour const MIN_COLOUR = 0.0f;
+
 Image image(WIDTH, HEIGHT);
 
 Vec3 viewpoint(0, 7, 1);
@@ -36,7 +39,7 @@ void display()
 
 	glDrawPixels(WIDTH, HEIGHT, 
 		GL_RGB,
-		GL_UNSIGNED_BYTE, 
+		GL_FLOAT, 
 		image.getImage());
 
 	glutSwapBuffers();
@@ -45,37 +48,40 @@ void display()
 int main(int argc, char** argv)
 {	
 	ObjectProperties *redSphereProperties = new ObjectProperties();
-	redSphereProperties->setColour({ 255, 0, 0 });
-	redSphereProperties->setSpecularColor({ 150, 150, 150 });
-	redSphereProperties->setPhongExponent(1000);
-	Sphere *redSphere = new Sphere(Vec3(-5, 0, 3), 3, redSphereProperties);
+	redSphereProperties->setColour({ MAX_COLOUR, MIN_COLOUR, MIN_COLOUR });
+	redSphereProperties->setSpecularColor({ 0.0f, 0.0f, 0.0f });
+	redSphereProperties->setPhongExponent(10000);
+	Sphere *redSphere = new Sphere(Vec3(-6, 0, 5), 3, redSphereProperties);
 
 	ObjectProperties *greenSphereProperties = new ObjectProperties();
-	greenSphereProperties->setColour({ 0, 255, 0 });
-	greenSphereProperties->setSpecularColor({ 0, 0, 0 });
-	greenSphereProperties->setPhongExponent(1000);
-	Sphere *greenSphere = new Sphere(Vec3(0, 0, 10), 3, greenSphereProperties);
+	greenSphereProperties->setColour({ MAX_COLOUR, 0.84f, MIN_COLOUR });
+	greenSphereProperties->setSpecularColor({ 1.0f, 0.84f, 0.2f });
+	greenSphereProperties->setPhongExponent(10000);
+	Sphere *greenSphere = new Sphere(Vec3(0, 3, 14), 6, greenSphereProperties);
 
 	ObjectProperties *blueSphereProperties = new ObjectProperties();
-	blueSphereProperties->setColour({ 0, 0, 255 });
-	blueSphereProperties->setSpecularColor({ 200, 200, 200 });
-	blueSphereProperties->setPhongExponent(1000);
-	Sphere *blueSphere = new Sphere(Vec3(5, 0, 3), 3, blueSphereProperties);
+	blueSphereProperties->setColour({ MIN_COLOUR, MIN_COLOUR, MAX_COLOUR });
+	blueSphereProperties->setSpecularColor({ 0.0f, 0.0f, 0.0f });
+	blueSphereProperties->setPhongExponent(10000);
+	Sphere *blueSphere = new Sphere(Vec3(4, -2, 7), 1, blueSphereProperties);
 
 	ObjectProperties *whiteSphereProperties = new ObjectProperties();
-	whiteSphereProperties->setColour({ 128, 128, 128 });
-	whiteSphereProperties->setSpecularColor({ 128, 128, 128 });
+	whiteSphereProperties->setColour({ 0.3f, 0.3f, 0.3f });
+	whiteSphereProperties->setSpecularColor({ MAX_COLOUR, MAX_COLOUR, MAX_COLOUR });
+//	whiteSphereProperties->setSpecularColor({ MIN_COLOUR, MIN_COLOUR, MIN_COLOUR });
 	whiteSphereProperties->setPhongExponent(10000);
 
 	ObjectProperties *darkSphereProperties = new ObjectProperties();
-	darkSphereProperties->setColour({ 200, 200, 200 });
+	darkSphereProperties->setColour({ 0.3f, 0.3f, 0.3f });
+	darkSphereProperties->setSpecularColor({ MIN_COLOUR, MIN_COLOUR, MIN_COLOUR });
+	darkSphereProperties->setPhongExponent(10000);
 
 	Dimension xLeft = -CAMERA_WIDTH / 2;
 	Dimension xRight = CAMERA_WIDTH / 2;
 	Dimension yBottom = -3;
 	Dimension yTop = CAMERA_HEIGHT - 3;
 	Dimension zFront = 1;
-	Dimension zBack = 25;
+	Dimension zBack = 50;
 
 	Quad *floor = new Quad({ xLeft, yBottom, zFront }, { xRight, yBottom, zFront }, { xRight, yBottom, zBack }, { xLeft, yBottom, zBack }, whiteSphereProperties);
 	Quad *leftWall = new Quad({ xLeft, yBottom, zFront }, { xLeft, yBottom, zBack }, { xLeft, yTop, zBack }, { xLeft, yTop, zFront }, whiteSphereProperties);
@@ -84,8 +90,8 @@ int main(int argc, char** argv)
 	Quad *ceiling = new Quad({ xLeft, yTop, zFront }, { xLeft, yTop, zBack }, { xRight, yTop, zBack }, { xRight, yTop, zFront }, whiteSphereProperties);
 	
 
-	PointLight light(Vec3(-5, 10, 4), { 0.6f, 0.6f, 0.6f });
-	PointLight light2(Vec3(0, 10, 13), { 1.0f, 1.0f, 1.0f });
+	PointLight light(Vec3(-5, 8, 4), { 0.6f, 0.6f, 0.6f });
+	PointLight light2(Vec3(0, 15, 4), { 0.4f, 0.4f, 0.4f });
 	PointLight light3(Vec3(14, 13, 2), { 0.5f, 0.5f, 0.5f });
 
 	Scene scene;
@@ -93,10 +99,10 @@ int main(int argc, char** argv)
 	scene.addObject(greenSphere);
 	scene.addObject(blueSphere);
 	scene.addObject(floor);
-	scene.addObject(leftWall);
-	scene.addObject(rightWall);
-	scene.addObject(backWall);
-	scene.addObject(ceiling);
+//	scene.addObject(leftWall);
+//	scene.addObject(rightWall);
+//	scene.addObject(backWall);
+//	scene.addObject(ceiling);
 	scene.addPointLight(&light);
 	scene.addPointLight(&light2);
 //	scene.addPointLight(&light3);

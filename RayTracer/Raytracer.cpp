@@ -6,8 +6,11 @@
 extern int const WIDTH;
 extern int const HEIGHT;
 
+extern PixelColour const MAX_COLOUR;
+extern PixelColour const MIN_COLOUR;
+
 Raytracer::Raytracer() {
-	m_backgroundColour = { 0, 0, 0 };
+	m_backgroundColour = { MIN_COLOUR, MIN_COLOUR, MIN_COLOUR };
 }
 
 void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image image)
@@ -16,31 +19,9 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 	{
 		for (int currentColumn = 0; currentColumn < WIDTH; ++currentColumn)
 		{
-			Colour pixelColour;
-			Pixel pixel = image.getPixel(currentRow, currentColumn);
-			
 			camera.computeRay(currentRow, currentColumn, m_viewingRay);
-			HitRecord hitRecord;
-			bool hit = scene.rayIntersect(m_viewingRay, MIN_TRACE_DIST, MAX_TRACE_DIST, hitRecord);
-
-			if (hit)
-			{
-				Colour surfaceColour = hitRecord.getSurfaceColour();
-				pixelColour[RGB_R] = surfaceColour[RGB_R] * scene.getAmbientLight().colourIntensities[RGB_R];
-				pixelColour[RGB_G] = surfaceColour[RGB_G] * scene.getAmbientLight().colourIntensities[RGB_G];
-				pixelColour[RGB_B] = surfaceColour[RGB_B] * scene.getAmbientLight().colourIntensities[RGB_B];
-
-				PointLights pointLights = scene.getPointLights();
-
-				Colour pointLighting = shadePixel(pointLights, scene, hitRecord);
-				pixelColour = addColours(pixelColour, pointLighting);
-				
-			}
-
-			else
-			{
-				pixelColour = m_backgroundColour;
-			}
+			Colour pixelColour = rayColour(m_viewingRay, scene, MIN_TRACE_DIST, MAX_TRACE_DIST, 5);
+			Pixel pixel = image.getPixel(currentRow, currentColumn);
 
 			pixel[RGB_R] = pixelColour[RGB_R];
 			pixel[RGB_G] = pixelColour[RGB_G];
@@ -49,11 +30,64 @@ void Raytracer::traceScene(const Scene &scene, const ICamera &camera, Image imag
 	}
 }
 
+Colour Raytracer::rayColour(const ViewingRay &viewingRay, const Scene &scene, const double min_t, const double max_t, int callsToMake)
+{
+	if (callsToMake == 0)
+	{
+		return Colour({ MIN_COLOUR, MIN_COLOUR, MIN_COLOUR });
+	}
+	
+	Colour pixelColour;
+	
+	HitRecord hitRecord;
+	bool hit = scene.rayIntersect(viewingRay, EPSILON, MAX_TRACE_DIST, hitRecord);
+
+	if (hit)
+	{
+		Colour surfaceColour = hitRecord.getSurfaceColour();
+		pixelColour[RGB_R] = surfaceColour[RGB_R] * scene.getAmbientLight().colourIntensities[RGB_R];
+		pixelColour[RGB_G] = surfaceColour[RGB_G] * scene.getAmbientLight().colourIntensities[RGB_G];
+		pixelColour[RGB_B] = surfaceColour[RGB_B] * scene.getAmbientLight().colourIntensities[RGB_B];
+
+		PointLights pointLights = scene.getPointLights();
+
+		Colour pointLighting = shadePixel(pointLights, scene, hitRecord);
+		if (hitRecord.getSpecularColour() != Colour({ MIN_COLOUR, MIN_COLOUR, MIN_COLOUR }))
+		{
+			Vec3 d = viewingRay.getDirection();
+			Vec3 n = hitRecord.getNormal();
+			double scalar = gmtl::dot(n, d);
+			Vec3 r = d - (2 * (scalar)* n);
+			gmtl::normalize(r);
+
+			ViewingRay reflectionRay;
+			reflectionRay.setOrigin(hitRecord.getHitPoint());
+			reflectionRay.setDirection(r);
+			Colour reflectionColour = rayColour(reflectionRay, scene, EPSILON, MAX_TRACE_DIST, --callsToMake);
+
+			Colour reflectiveProperty = hitRecord.getSpecularColour();
+			reflectionColour[RGB_R] *= reflectiveProperty[RGB_R];
+			reflectionColour[RGB_G] *= reflectiveProperty[RGB_G];
+			reflectionColour[RGB_B] *= reflectiveProperty[RGB_B];
+
+			pointLighting += reflectionColour;
+		}
+		pixelColour += pointLighting;
+	}
+
+	else
+	{
+		pixelColour = m_backgroundColour;
+	}
+
+	return pixelColour;
+}
+
 Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene, const HitRecord &hitRecord)
 {
-	double red = 0;
-	double blue = 0;
-	double green = 0;
+	PixelColour red = MIN_COLOUR;
+	PixelColour blue = MIN_COLOUR;
+	PixelColour green = MIN_COLOUR;
 
 	for (unsigned int currentLight = 0; currentLight < pointLights.size(); ++currentLight)
 	{
@@ -69,7 +103,7 @@ Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene,
 		if (!shadowHit)
 		{
 			Vec3 surfaceNormal = hitRecord.getNormal();
-			Vec3 viewingDirection = -m_viewingRay.getDirection();
+			Vec3 viewingDirection = -hitRecord.getViewDirection();
 			
 			double angle = gmtl::dot(surfaceToLight, surfaceNormal);
 			double lambertianScalar = gmtl::Math::Max((double)0, angle);
@@ -83,46 +117,22 @@ Colour Raytracer::shadePixel(const PointLights &pointLights, const Scene &scene,
 			Colour specularColour = hitRecord.getSpecularColour();
 			double phongExponent = hitRecord.getSurface()->getObjectProperties()->getPhongExponent();
 
-			red += light.getRedIntensity() 
-				* (surfaceColour[RGB_R] * lambertianScalar + specularColour[RGB_R] * gmtl::Math::pow(phongScalar, phongExponent));
+			double redTerm = light.getRedIntensity()
+				* (surfaceColour[RGB_R] * lambertianScalar
+						+ specularColour[RGB_R] * gmtl::Math::pow(phongScalar, phongExponent)
+				);
+			red += redTerm;
 			blue += light.getBlueIntensity()
-				* (surfaceColour[RGB_B] * lambertianScalar + specularColour[RGB_B] * gmtl::Math::pow(phongScalar, phongExponent));
+				* (surfaceColour[RGB_B] * lambertianScalar 
+				+ specularColour[RGB_B] * gmtl::Math::pow(phongScalar, phongExponent)
+				);
 			green += light.getGreenIntensity()
-				* (surfaceColour[RGB_G] * lambertianScalar + specularColour[RGB_G] * gmtl::Math::pow(phongScalar, phongExponent));
+				* (surfaceColour[RGB_G] * lambertianScalar 
+				+ specularColour[RGB_G] * gmtl::Math::pow(phongScalar, phongExponent)
+				);
 		}
 	}
 
-	PixelColour finalRed = (red > 255) ? 255 : red;
-	PixelColour finalGreen = (green > 255) ? 255 : green;
-	PixelColour finalBlue = (blue > 255) ? 255 : blue;
-
-	Colour finalColour = { finalRed, finalGreen, finalBlue };
+	Colour finalColour = { red, green, blue };
 	return finalColour;
-}
-
-void Raytracer::cleanPixelColour(Colour &pixelColour)
-{
-	PixelColour &red = pixelColour[RGB_R];
-	PixelColour &green = pixelColour[RGB_G];
-	PixelColour &blue = pixelColour[RGB_B];
-
-	red = (red > 255) ? 255 : red;
-	green = (green > 255) ? 255 : green;
-	blue = (blue > 255) ? 255 : blue;
-}
-
-Colour Raytracer::addColours(const Colour &c1, const Colour &c2)
-{
-	Colour sum;
-	
-	int redTest = (int) c1[RGB_R] + (int) c2[RGB_R];
-	sum[RGB_R] = (redTest > 255) ? 255 : redTest;
-
-	int greenTest = (int)c1[RGB_G] + (int)c2[RGB_G];
-	sum[RGB_G] = (greenTest > 255) ? 255 : greenTest;
-
-	int blueTest = (int)c1[RGB_B] + (int)c2[RGB_B];
-	sum[RGB_B] = (blueTest > 255) ? 255 : blueTest;
-
-	return sum;
 }

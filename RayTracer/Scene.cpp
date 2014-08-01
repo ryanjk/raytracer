@@ -23,7 +23,7 @@ bool Scene::rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, 
 	// If an object is hit, see if it is the closest to the camera
 
 	bool hit = false;
-	double t = upperLimit;
+	double currentHighest = upperLimit;
 	ISceneObject *hitObject = nullptr;
 
 	for (unsigned int currentObject = 0; currentObject < sceneObjects.size(); ++currentObject)
@@ -31,18 +31,18 @@ bool Scene::rayIntersect(const ViewingRay &viewingRay, const double lowerLimit, 
 		ISceneObject *sceneObject = sceneObjects[currentObject];
 		double tempHit;
 		bool isHit = sceneObject->rayIntersect(viewingRay, lowerLimit, upperLimit, tempHit);
-		if (isHit && (lowerLimit <= tempHit) && (tempHit <= t))
+		if (isHit && (lowerLimit <= tempHit) && (tempHit <= currentHighest))
 		{
 			hit = true;
-			t = tempHit;
+			currentHighest = tempHit;
 			hitObject = sceneObject;
 		}
 	}
 
 	if (hit)
 	{
-		Vec3 hitPoint = viewingRay.getOrigin() + t * viewingRay.getDirection();
-		hitRecord.create(hitObject, hitPoint);
+		Vec3 hitPoint = viewingRay.getOrigin() + currentHighest * viewingRay.getDirection();
+		hitRecord.create(hitObject, hitPoint, viewingRay.getDirection());
 	}
 
 	return hit;
